@@ -76,6 +76,38 @@ func (h *ProductIOHandler) Export(w http.ResponseWriter, r *http.Request) {
 			writer.Write([]string{p.Name, p.SKU, catID, p.Description, p.ImagePath, attrsJSON})
 		}
 		writer.Flush()
+	case "mc":
+		if h.catRepo == nil {
+			http.Error(w, `{"error":"mc export requires category repo"}`, http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Content-Disposition", "attachment; filename=products_mc.csv")
+		writer := csv.NewWriter(w)
+		writer.Comma = ';'
+		writer.Write([]string{"Категория", "Подкатегория", "Наименование", "Размер", "Марка", "Длина", "Город", "Остаток", "Цена 1т", "Цена 5т", "Цена 10т", "Артикул", "Описание", "Характеристики", "Изображения", "URL", "Дубликаты"})
+		for _, p := range result.Products {
+			catName, subcatName := "", ""
+			if p.CategoryID != nil {
+				catName, subcatName = h.catRepo.GetPathByID(*p.CategoryID)
+			}
+			chars := ""
+			for _, a := range p.Attributes {
+				if a.Key == "characteristics" {
+					chars = a.Value
+					break
+				}
+			}
+			price1 := strings.Replace(strconv.FormatFloat(p.Price1t, 'f', -1, 64), ".", ",", 1)
+			price5 := strings.Replace(strconv.FormatFloat(p.Price5t, 'f', -1, 64), ".", ",", 1)
+			price10 := strings.Replace(strconv.FormatFloat(p.Price10t, 'f', -1, 64), ".", ",", 1)
+			writer.Write([]string{
+				catName, subcatName, p.Name, p.Size, p.Mark, p.Length, p.City,
+				strconv.Itoa(p.Stock), price1, price5, price10,
+				p.SKU, p.Description, chars, p.ImagePath, p.SourceURL, "",
+			})
+		}
+		writer.Flush()
 	case "json":
 		fallthrough
 	default:

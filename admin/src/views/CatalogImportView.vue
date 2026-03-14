@@ -1,6 +1,19 @@
 <template>
-  <div>
+  <div class="space-y-6">
     <UiCard class="max-w-lg">
+      <h3 class="text-lg font-semibold text-slate-800 mb-4">Экспорт</h3>
+      <UiSelect v-model="exportFormat" label="Формат">
+        <option value="json">JSON</option>
+        <option value="csv">CSV</option>
+        <option value="mc">MC (металлсервис)</option>
+      </UiSelect>
+      <UiButton class="mt-4" :disabled="exporting" @click="exportProducts">
+        {{ exporting ? 'Скачивание...' : 'Скачать' }}
+      </UiButton>
+    </UiCard>
+
+    <UiCard class="max-w-lg">
+      <h3 class="text-lg font-semibold text-slate-800 mb-4">Импорт</h3>
       <UiSelect v-model="format" label="Формат">
         <option value="json">JSON</option>
         <option value="csv">CSV</option>
@@ -31,9 +44,33 @@ import { UiButton, UiCard, UiSelect } from '@ui'
 import client from '../api/client'
 
 const format = ref('json')
+const exportFormat = ref('json')
 const file = ref(null)
 const result = ref(null)
 const error = ref('')
+const exporting = ref(false)
+
+async function exportProducts() {
+  exporting.value = true
+  error.value = ''
+  try {
+    const { data } = await client.get(`/admin/products/export?format=${exportFormat.value}`, {
+      responseType: 'blob',
+    })
+    const ext = exportFormat.value === 'json' ? 'json' : 'csv'
+    const filename = exportFormat.value === 'mc' ? 'products_mc.csv' : `products.${ext}`
+    const url = URL.createObjectURL(data)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(url)
+  } catch (e) {
+    error.value = e.response?.data?.error || 'Ошибка экспорта'
+  } finally {
+    exporting.value = false
+  }
+}
 
 function onFile(e) {
   file.value = e.target.files?.[0]

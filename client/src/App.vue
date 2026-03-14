@@ -124,7 +124,7 @@
     </div>
 
     <main :class="['flex-1 pb-36 lg:pt-0 lg:pb-0 lg:ml-20', route.path === '/' ? 'pt-0' : 'pt-20']">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </main>
     <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
       <div class="container mx-auto px-4 text-center">

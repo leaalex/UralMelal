@@ -75,6 +75,20 @@ func (r *CategoryRepository) GetByID(id uint) (*models.Category, error) {
 	return &c, nil
 }
 
+// GetPathByID returns (parentName, childName) for MC export.
+// If category has no parent: (cat.Name, "").
+// If category has parent: (parent.Name, cat.Name).
+func (r *CategoryRepository) GetPathByID(id uint) (parentName, childName string) {
+	var c models.Category
+	if err := r.db.Preload("Parent").First(&c, id).Error; err != nil {
+		return "", ""
+	}
+	if c.Parent == nil || c.ParentID == nil {
+		return c.Name, ""
+	}
+	return c.Parent.Name, c.Name
+}
+
 func (r *CategoryRepository) Create(c *models.Category) error {
 	return r.db.Create(c).Error
 }

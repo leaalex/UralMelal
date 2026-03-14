@@ -113,6 +113,15 @@ func (h *ProductHandler) Update(w http.ResponseWriter, r *http.Request) {
 	p.CategoryID = input.CategoryID
 	p.Description = input.Description
 	p.ImagePath = input.ImagePath
+	p.Size = input.Size
+	p.Mark = input.Mark
+	p.Length = input.Length
+	p.City = input.City
+	p.Stock = input.Stock
+	p.Price1t = input.Price1t
+	p.Price5t = input.Price5t
+	p.Price10t = input.Price10t
+	p.SourceURL = input.SourceURL
 	p.Attributes = input.Attributes
 	if err := h.repo.Update(p); err != nil {
 		http.Error(w, `{"error":"failed to update"}`, http.StatusInternalServerError)

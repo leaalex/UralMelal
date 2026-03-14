@@ -174,7 +174,7 @@
 
       <div v-else class="py-16 text-center">
         <p class="text-slate-500 mb-4">Товары не найдены</p>
-        <UiButton variant="secondary" @click="router.push('/catalog')">
+        <UiButton variant="secondary" @click="router.replace({ path: '/catalog', query: {} })">
           В каталог
         </UiButton>
       </div>
@@ -266,7 +266,7 @@
 
       <div v-else class="py-16 text-center">
         <p class="text-slate-500 mb-4">По вашему запросу ничего не найдено</p>
-        <UiButton variant="secondary" @click="router.push('/catalog')">В каталог</UiButton>
+        <UiButton variant="secondary" @click="router.replace({ path: '/catalog', query: {} })">В каталог</UiButton>
       </div>
 
       <div v-if="!loading && products.length" class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">

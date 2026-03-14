@@ -212,16 +212,40 @@
         </div>
 
         <!-- New: form -->
-        <div v-else class="space-y-3">
-          <UiInput v-model="newProductForm.name" label="Название *" />
-          <UiInput v-model="newProductForm.sku" label="Артикул" />
-          <UiInput v-model="newProductForm.description" label="Описание (Markdown)" tag="textarea" :rows="3" />
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1.5">Изображение</label>
-            <div class="flex gap-2">
-              <UiInput v-model="newProductForm.image_path" placeholder="URL или загрузите" class="flex-1" />
-              <input type="file" accept="image/*" @change="uploadNewProductFile" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+        <div v-else class="space-y-4 max-h-[50vh] overflow-y-auto">
+          <div class="space-y-3">
+            <UiInput v-model="newProductForm.name" label="Название *" />
+            <UiInput v-model="newProductForm.sku" label="Артикул" />
+            <UiInput v-model="newProductForm.description" label="Описание (Markdown)" tag="textarea" :rows="3" />
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1.5">Изображение</label>
+              <div class="flex gap-2">
+                <UiInput v-model="newProductForm.image_path" placeholder="URL или загрузите" class="flex-1" />
+                <input type="file" accept="image/*" @change="uploadNewProductFile" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+              </div>
             </div>
+          </div>
+          <div class="space-y-3">
+            <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Характеристики</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <UiInput v-model="newProductForm.size" label="Размер" />
+              <UiInput v-model="newProductForm.mark" label="Марка" />
+              <UiInput v-model="newProductForm.length" label="Длина" />
+              <UiInput v-model="newProductForm.city" label="Город" />
+            </div>
+          </div>
+          <div class="space-y-3">
+            <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Цены и наличие</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <UiInput v-model.number="newProductForm.stock" type="number" label="В наличии" />
+              <UiInput v-model.number="newProductForm.price_1t" type="number" step="0.01" label="Цена за 1 т" />
+              <UiInput v-model.number="newProductForm.price_5t" type="number" step="0.01" label="Цена за 5 т" />
+              <UiInput v-model.number="newProductForm.price_10t" type="number" step="0.01" label="Цена за 10 т" />
+            </div>
+          </div>
+          <div class="space-y-3">
+            <UiInput v-model="newProductForm.source_url" label="Ссылка на источник" />
+            <UiInput v-model="newProductForm.characteristics" tag="textarea" :rows="2" placeholder="Дн: 50; Вид: Зонт; Вес, кг: 0,09" label="Характеристики" />
           </div>
         </div>
       </div>
@@ -232,24 +256,53 @@
     </UiModal>
 
     <!-- Edit product modal -->
-    <UiModal v-model="editProductModal">
+    <UiModal v-model="editProductModal" size="md">
       <template #title>
         <h2 class="text-xl font-bold">Редактировать товар</h2>
       </template>
-      <div class="space-y-3">
-        <UiInput v-model="editProductForm.name" label="Название *" />
-        <UiInput v-model="editProductForm.sku" label="Артикул" />
-        <UiSelect v-model="editProductForm.category_id" label="Категория">
-          <option value="">—</option>
-          <option v-for="c in flatCategories" :key="c.id" :value="c.id">{{ c.name }}</option>
-        </UiSelect>
-        <UiInput v-model="editProductForm.description" label="Описание (Markdown)" tag="textarea" :rows="4" />
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1.5">Изображение</label>
-          <div class="flex gap-2">
-            <UiInput v-model="editProductForm.image_path" placeholder="URL или загрузите" class="flex-1" />
-            <input type="file" accept="image/*" @change="uploadEditProductFile" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+      <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+        <div class="space-y-3">
+          <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Основные</h3>
+          <UiInput v-model="editProductForm.name" label="Название *" />
+          <UiInput v-model="editProductForm.sku" label="Артикул" />
+          <UiSelect v-model="editProductForm.category_id" label="Категория">
+            <option value="">—</option>
+            <option v-for="c in flatCategories" :key="c.id" :value="c.id">{{ c.name }}</option>
+          </UiSelect>
+          <UiInput v-model="editProductForm.description" label="Описание (Markdown)" tag="textarea" :rows="4" />
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5">Изображение</label>
+            <div class="flex gap-2">
+              <UiInput v-model="editProductForm.image_path" placeholder="URL или загрузите" class="flex-1" />
+              <input type="file" accept="image/*" @change="uploadEditProductFile" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+            </div>
           </div>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Характеристики</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <UiInput v-model="editProductForm.size" label="Размер" />
+            <UiInput v-model="editProductForm.mark" label="Марка" />
+            <UiInput v-model="editProductForm.length" label="Длина" />
+            <UiInput v-model="editProductForm.city" label="Город" />
+          </div>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Цены и наличие</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <UiInput v-model.number="editProductForm.stock" type="number" label="В наличии" />
+            <UiInput v-model.number="editProductForm.price_1t" type="number" step="0.01" label="Цена за 1 т" />
+            <UiInput v-model.number="editProductForm.price_5t" type="number" step="0.01" label="Цена за 5 т" />
+            <UiInput v-model.number="editProductForm.price_10t" type="number" step="0.01" label="Цена за 10 т" />
+          </div>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Ссылка</h3>
+          <UiInput v-model="editProductForm.source_url" label="Ссылка на источник" />
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-sm font-medium text-slate-600 border-b border-slate-200 pb-1">Атрибуты</h3>
+          <UiInput v-model="editProductForm.characteristics" tag="textarea" :rows="3" placeholder="Дн: 50; Вид: Зонт; Вес, кг: 0,09" label="Характеристики" />
         </div>
       </div>
       <div class="mt-6 flex gap-2">
@@ -277,9 +330,42 @@ const addProductMode = ref('existing')
 const productSearchQ = ref('')
 const existingProducts = ref([])
 const existingProductsSearched = ref(false)
-const newProductForm = ref({ name: '', sku: '', description: '', image_path: '' })
+const emptyNewProductForm = () => ({
+  name: '',
+  sku: '',
+  description: '',
+  image_path: '',
+  size: '',
+  mark: '',
+  length: '',
+  city: '',
+  stock: 0,
+  price_1t: 0,
+  price_5t: 0,
+  price_10t: 0,
+  source_url: '',
+  characteristics: '',
+})
+const newProductForm = ref(emptyNewProductForm())
 const editProductModal = ref(false)
-const editProductForm = ref({ name: '', sku: '', category_id: '', description: '', image_path: '' })
+const emptyEditProductForm = () => ({
+  name: '',
+  sku: '',
+  category_id: '',
+  description: '',
+  image_path: '',
+  size: '',
+  mark: '',
+  length: '',
+  city: '',
+  stock: 0,
+  price_1t: 0,
+  price_5t: 0,
+  price_10t: 0,
+  source_url: '',
+  characteristics: '',
+})
+const editProductForm = ref(emptyEditProductForm())
 const editingProduct = ref(null)
 const activeTab = ref('description')
 
@@ -424,7 +510,7 @@ function openAddProduct() {
   productSearchQ.value = ''
   existingProducts.value = []
   existingProductsSearched.value = false
-  newProductForm.value = { name: '', sku: '', description: '', image_path: '' }
+  newProductForm.value = emptyNewProductForm()
   searchExistingProducts()
 }
 
@@ -443,12 +529,23 @@ async function searchExistingProducts() {
 async function assignProductToCategory(p) {
   if (!selectedCategory.value) return
   try {
+    const attrs = Array.isArray(p.attributes) ? p.attributes : []
     await client.put(`/admin/products/${p.id}`, {
       name: p.name,
       sku: p.sku || '',
       category_id: selectedCategory.value.id,
       description: p.description || '',
       image_path: p.image_path || '',
+      size: p.size || '',
+      mark: p.mark || '',
+      length: p.length || '',
+      city: p.city || '',
+      stock: p.stock ?? 0,
+      price_1t: p.price_1t ?? 0,
+      price_5t: p.price_5t ?? 0,
+      price_10t: p.price_10t ?? 0,
+      source_url: p.source_url || '',
+      attributes: attrs,
     })
     addProductModal.value = false
     await loadProducts()
@@ -467,13 +564,34 @@ async function uploadNewProductFile(e) {
   newProductForm.value.image_path = data.url
 }
 
+function buildNewProductPayload() {
+  const f = newProductForm.value
+  const attrs = []
+  if (f.characteristics?.trim()) {
+    attrs.push({ key: 'characteristics', value: f.characteristics.trim() })
+  }
+  return {
+    name: f.name,
+    sku: f.sku || '',
+    category_id: selectedCategory.value.id,
+    description: f.description || '',
+    image_path: f.image_path || '',
+    size: f.size || '',
+    mark: f.mark || '',
+    length: f.length || '',
+    city: f.city || '',
+    stock: f.stock ?? 0,
+    price_1t: f.price_1t ?? 0,
+    price_5t: f.price_5t ?? 0,
+    price_10t: f.price_10t ?? 0,
+    source_url: f.source_url || '',
+    attributes: attrs,
+  }
+}
 async function createNewProduct() {
   if (!newProductForm.value.name || !selectedCategory.value) return
   try {
-    await client.post('/admin/products', {
-      ...newProductForm.value,
-      category_id: selectedCategory.value.id,
-    })
+    await client.post('/admin/products', buildNewProductPayload())
     addProductModal.value = false
     await loadProducts()
     await load()
@@ -484,12 +602,23 @@ async function createNewProduct() {
 
 function openEditProduct(p) {
   editingProduct.value = p
+  const chars = p.attributes?.find((a) => a.key === 'characteristics')
   editProductForm.value = {
     name: p.name,
     sku: p.sku || '',
     category_id: p.category_id ?? '',
     description: p.description || '',
     image_path: p.image_path || '',
+    size: p.size || '',
+    mark: p.mark || '',
+    length: p.length || '',
+    city: p.city || '',
+    stock: p.stock ?? 0,
+    price_1t: p.price_1t ?? 0,
+    price_5t: p.price_5t ?? 0,
+    price_10t: p.price_10t ?? 0,
+    source_url: p.source_url || '',
+    characteristics: chars?.value || '',
   }
   editProductModal.value = true
 }
@@ -503,13 +632,34 @@ async function uploadEditProductFile(e) {
   editProductForm.value.image_path = data.url
 }
 
+function buildEditProductPayload() {
+  const f = editProductForm.value
+  const attrs = []
+  if (f.characteristics?.trim()) {
+    attrs.push({ key: 'characteristics', value: f.characteristics.trim() })
+  }
+  return {
+    name: f.name,
+    sku: f.sku || '',
+    category_id: f.category_id || null,
+    description: f.description || '',
+    image_path: f.image_path || '',
+    size: f.size || '',
+    mark: f.mark || '',
+    length: f.length || '',
+    city: f.city || '',
+    stock: f.stock ?? 0,
+    price_1t: f.price_1t ?? 0,
+    price_5t: f.price_5t ?? 0,
+    price_10t: f.price_10t ?? 0,
+    source_url: f.source_url || '',
+    attributes: attrs,
+  }
+}
 async function saveEditProduct() {
   if (!editingProduct.value || !editProductForm.value.name) return
   try {
-    await client.put(`/admin/products/${editingProduct.value.id}`, {
-      ...editProductForm.value,
-      category_id: editProductForm.value.category_id || null,
-    })
+    await client.put(`/admin/products/${editingProduct.value.id}`, buildEditProductPayload())
     editProductModal.value = false
     await loadProducts()
     await load()
