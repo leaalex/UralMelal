@@ -10,7 +10,7 @@
           <button
             v-if="showClose"
             type="button"
-            class="absolute top-4 right-4 rounded-xl p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-600 transition-colors duration-150"
+            class="absolute top-4 right-4 rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-600 transition-colors duration-150"
             aria-label="Закрыть"
             @click="close"
           >

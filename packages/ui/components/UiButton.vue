@@ -4,7 +4,7 @@
     :to="to"
     :type="to ? undefined : (props.type || 'button')"
     :disabled="disabled || loading"
-    class="inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+    class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
     :class="[variantClasses, sizeClasses]"
     @click="!to && !loading && $emit('click')"
   >

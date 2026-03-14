@@ -50,26 +50,26 @@
             <div class="flex flex-wrap gap-2 mb-3">
               <span
                 v-if="product.size"
-                class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-700"
+                class="inline-flex items-center rounded-lg bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-700"
               >
                 {{ product.size }}
               </span>
               <span
                 v-if="product.mark"
-                class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-700"
+                class="inline-flex items-center rounded-lg bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-700"
               >
                 {{ product.mark }}
               </span>
               <span
                 v-if="hasStock"
-                class="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-0.5 text-sm font-medium text-emerald-700"
+                class="inline-flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-0.5 text-sm font-medium text-emerald-700"
               >
                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 В наличии
               </span>
               <span
                 v-else-if="product.stock !== undefined"
-                class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-sm text-slate-500"
+                class="inline-flex items-center rounded-lg bg-slate-100 px-2.5 py-0.5 text-sm text-slate-500"
               >
                 Нет в наличии
               </span>

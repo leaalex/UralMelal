@@ -82,9 +82,7 @@ func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
 	} else if input.Name != "" {
 		cat.Slug = slugify(input.Name)
 	}
-	if input.ParentID != nil {
-		cat.ParentID = input.ParentID
-	}
+	cat.ParentID = input.ParentID
 	if input.SortOrder != 0 || input.Name != "" {
 		cat.SortOrder = input.SortOrder
 	}

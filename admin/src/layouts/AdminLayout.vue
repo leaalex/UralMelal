@@ -69,8 +69,16 @@
         <ChevronRightIcon v-else class="h-4 w-4" />
       </button>
     </div>
-    <main class="flex-1 p-6 transition-[margin-left] duration-200 ease-out" :class="collapsed ? 'ml-24' : 'ml-[19rem]'">
-      <router-view />
+    <main
+      class="flex-1 min-h-0 flex flex-col transition-[margin-left] duration-200 ease-out"
+      :class="[
+        collapsed ? 'ml-24' : 'ml-[19rem]',
+        isCategories ? 'py-4 px-6' : 'p-6',
+      ]"
+    >
+      <div class="flex-1 min-h-0 flex flex-col min-w-0">
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
@@ -88,11 +96,14 @@ import {
   ChevronRightIcon,
   ArrowRightOnRectangleIcon,
 } from '@heroicons/vue/24/outline'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
 const auth = useAuthStore()
 const collapsed = ref(false)
+const route = useRoute()
+const isCategories = computed(() => route.name === 'Categories')
 
 function logout() {
   auth.logout()

@@ -29,13 +29,13 @@
       <div class="flex flex-wrap gap-1.5 mb-2">
         <span
           v-if="product.size"
-          class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700"
+          class="inline-flex items-center rounded-lg bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700"
         >
           {{ product.size }}
         </span>
         <span
           v-if="product.mark"
-          class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700"
+          class="inline-flex items-center rounded-lg bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700"
         >
           {{ product.mark }}
         </span>

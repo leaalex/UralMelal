@@ -2,7 +2,7 @@
   <div class="flex items-center gap-1">
     <button
       :disabled="page <= 1"
-      class="rounded-xl px-3 py-2 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700"
+      class="rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700"
       @click="$emit('update:page', page - 1)"
     >
       Назад
@@ -19,7 +19,7 @@
         <button
           v-else
           type="button"
-          class="min-w-[2.25rem] rounded-xl px-3 py-2 text-sm font-medium transition-all duration-150 border"
+          class="min-w-[2.25rem] rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 border"
           :class="item === page ? 'border-slate-800 bg-slate-800 text-white' : 'border-slate-300 bg-white hover:bg-slate-50 text-slate-700'"
           @click="$emit('update:page', item)"
         >
@@ -29,7 +29,7 @@
     </div>
     <button
       :disabled="page >= totalPages"
-      class="rounded-xl px-3 py-2 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700"
+      class="rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 border border-slate-300 bg-white hover:bg-slate-50 text-slate-700"
       @click="$emit('update:page', page + 1)"
     >
       Вперёд
