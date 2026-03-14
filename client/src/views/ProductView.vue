@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto px-4 py-6 lg:py-8">
-    <div v-if="loading" class="max-w-4xl mx-auto">
+  <div class="w-full max-w-7xl mx-auto px-4 py-6 lg:py-8 min-w-0">
+    <div v-if="loading">
       <div class="animate-pulse space-y-6">
         <div class="h-4 bg-slate-200 rounded w-48" />
         <div class="flex flex-col md:flex-row gap-6">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div v-else-if="product" class="max-w-5xl mx-auto">
+    <div v-else-if="product">
       <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6">
         <router-link to="/catalog" class="hover:text-slate-700">Каталог</router-link>
         <template v-for="(crumb, i) in breadcrumbs" :key="crumb.id">
@@ -141,19 +141,48 @@ import { useRoute, useRouter } from 'vue-router'
 import client from '../api/client'
 import { MarkdownContent, UiButton } from '@ui'
 import { formatPrice, parseSpecs } from '../utils/format'
+import { useCategories } from '../composables/useCategories'
 
 const route = useRoute()
 const router = useRouter()
+const { categories, loadCategories, findCategoryById } = useCategories()
 
 const product = ref(null)
 const loading = ref(true)
 
 const breadcrumbs = computed(() => {
-  const crumbs = []
-  const cat = product.value?.category
-  if (cat) crumbs.push({ id: cat.id, name: cat.name })
-  if (product.value?.name) crumbs.push({ id: product.value.id, name: product.value.name })
-  return crumbs
+  const result = []
+  const catId = product.value?.category_id ?? product.value?.category?.id
+  if (!catId) {
+    if (product.value?.name) result.push({ id: product.value.id, name: product.value.name })
+    return result
+  }
+  const cats = categories.value ?? []
+  const cat = findCategoryById(cats, catId)
+  if (!cat) {
+    if (product.value?.name) result.push({ id: product.value.id, name: product.value.name })
+    return result
+  }
+  const path = []
+  function collect(c, list) {
+    if (!c || !c.id) return
+    list.unshift(c)
+    const parentId = c.parent_id ?? c.parentId
+    if (parentId) {
+      const parent = findCategoryById(cats, parentId)
+      if (parent) collect(parent, list)
+    }
+  }
+  collect(cat, path)
+  for (const c of path) {
+    if (c && c.id != null && c.name) {
+      result.push({ id: c.id, name: c.name, link: { path: '/catalog', query: { cat: c.id } } })
+    }
+  }
+  if (product.value?.name) {
+    result.push({ id: product.value.id, name: product.value.name })
+  }
+  return result
 })
 
 const specs = computed(() => {
@@ -183,6 +212,7 @@ function requestPrice() {
 }
 
 onMounted(async () => {
+  await loadCategories()
   try {
     const { data } = await client.get(`/products/${route.params.id}`)
     product.value = data

@@ -16,11 +16,48 @@ func NewCategoryRepository(db *gorm.DB) *CategoryRepository {
 }
 
 func (r *CategoryRepository) GetTree() ([]models.Category, error) {
-	var roots []models.Category
-	err := r.db.Where("parent_id IS NULL").Order("sort_order ASC, name ASC").Preload("Children", func(db *gorm.DB) *gorm.DB {
-		return db.Order("sort_order ASC, name ASC")
-	}).Find(&roots).Error
-	return roots, err
+	var all []models.Category
+	if err := r.db.Order("sort_order ASC, name ASC").Find(&all).Error; err != nil {
+		return nil, err
+	}
+	counts, err := r.productCountsByCategory()
+	if err != nil {
+		return nil, err
+	}
+	for i := range all {
+		all[i].ProductCount = counts[all[i].ID]
+	}
+	return buildTree(all, nil), nil
+}
+
+func (r *CategoryRepository) productCountsByCategory() (map[uint]int, error) {
+	var rows []struct {
+		CategoryID uint
+		Count      int64
+	}
+	err := r.db.Model(&models.Product{}).Select("category_id, count(*) as count").
+		Where("category_id IS NOT NULL").
+		Group("category_id").
+		Scan(&rows).Error
+	if err != nil {
+		return nil, err
+	}
+	out := make(map[uint]int)
+	for _, row := range rows {
+		out[row.CategoryID] = int(row.Count)
+	}
+	return out, nil
+}
+
+func buildTree(all []models.Category, parentID *uint) []models.Category {
+	var result []models.Category
+	for _, c := range all {
+		if (parentID == nil && c.ParentID == nil) || (parentID != nil && c.ParentID != nil && *c.ParentID == *parentID) {
+			c.Children = buildTree(all, &c.ID)
+			result = append(result, c)
+		}
+	}
+	return result
 }
 
 func (r *CategoryRepository) List() ([]models.Category, error) {

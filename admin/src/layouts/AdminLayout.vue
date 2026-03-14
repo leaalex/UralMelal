@@ -1,51 +1,67 @@
 <template>
   <div class="min-h-screen bg-slate-100 flex">
-    <aside class="w-56 bg-slate-800 text-white fixed h-full">
-      <div class="p-4 border-b border-slate-700">
-        <span class="font-semibold">Урал Металл</span>
+    <!-- Sidebar: как в клиенте, но всегда развёрнуто -->
+    <nav class="fixed top-4 left-4 bottom-4 w-72 flex-col bg-white/95 backdrop-blur-xl text-slate-700 border border-slate-200 z-50 rounded-xl overflow-hidden shadow-xl flex">
+      <div class="shrink-0 pt-6 px-4 pb-5 border-b border-slate-200 flex items-center min-h-[4.5rem]">
+        <router-link to="/" class="flex items-center">
+          <img
+            src="/admin/logo-admin.png"
+            alt="Урал Металл"
+            class="h-10 w-auto object-contain"
+          />
+        </router-link>
       </div>
-      <nav class="p-2">
-        <router-link v-if="auth.isEditor" to="/" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-          Дашборд
+      <div class="flex-1 flex flex-col gap-2 pt-4 px-2 overflow-y-auto min-h-0">
+        <router-link v-if="auth.isEditor" to="/" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" exact-active-class="!bg-slate-200 !text-slate-900">
+          <HomeIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Дашборд</span>
         </router-link>
-        <router-link v-if="auth.isEditor" to="/catalog" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-          Каталог
+        <router-link v-if="auth.isEditor" to="/catalog" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <FolderIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Каталог</span>
         </router-link>
-        <router-link v-if="auth.isEditor" to="/catalog/import" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-          Импорт
+        <router-link v-if="auth.isEditor" to="/catalog/import" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <ArrowUpTrayIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Импорт</span>
         </router-link>
-        <router-link v-if="auth.isEditor" to="/categories" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
-          Категории
+        <router-link v-if="auth.isEditor" to="/categories" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <TagIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Категории</span>
         </router-link>
-        <router-link v-if="auth.isEditor" to="/content" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-          Контент
+        <router-link v-if="auth.isEditor" to="/content" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <DocumentTextIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Контент</span>
         </router-link>
-        <router-link v-if="auth.isManager" to="/leads" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-          Заявки
+        <router-link v-if="auth.isManager" to="/leads" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <EnvelopeIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Заявки</span>
         </router-link>
-        <router-link v-if="auth.isAdmin" to="/users" class="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-150 hover:bg-slate-700" active-class="bg-slate-700">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          Пользователи
+        <router-link v-if="auth.isAdmin" to="/users" class="flex items-center gap-2 h-12 w-full min-w-12 px-3 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" active-class="!bg-slate-200 !text-slate-900">
+          <UsersIcon class="h-5 w-5 shrink-0" />
+          <span class="text-sm whitespace-nowrap">Пользователи</span>
         </router-link>
-      </nav>
-    </aside>
-    <main class="flex-1 ml-56 p-6">
-      <header class="flex justify-end items-center mb-6">
-        <span class="text-slate-600 mr-2">{{ auth.user?.username }}</span>
-        <UiButton variant="secondary" size="sm" @click="logout">Выйти</UiButton>
-      </header>
+      </div>
+      <div class="shrink-0 py-4 px-3 border-t border-slate-200 flex flex-col gap-2">
+        <span class="text-sm text-slate-600 truncate">{{ auth.user?.username }}</span>
+        <UiButton variant="secondary" size="sm" class="w-full" @click="logout">Выйти</UiButton>
+      </div>
+    </nav>
+    <main class="flex-1 ml-[19rem] p-6">
       <router-view />
     </main>
   </div>
 </template>
 
 <script setup>
+import {
+  HomeIcon,
+  FolderIcon,
+  ArrowUpTrayIcon,
+  TagIcon,
+  DocumentTextIcon,
+  EnvelopeIcon,
+  UsersIcon,
+} from '@heroicons/vue/24/outline'
 import { UiButton } from '@ui'
 import { useAuthStore } from '../stores/auth'
 

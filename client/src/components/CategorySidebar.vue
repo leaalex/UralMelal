@@ -11,9 +11,7 @@
         aria-label="Закрыть"
         @click="emit('update:open', false)"
       >
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <XMarkIcon class="h-5 w-5" />
       </button>
     </div>
     <nav class="p-4 overflow-y-auto overflow-x-hidden max-h-[calc(100vh-4rem)] lg:max-h-none min-w-0">
@@ -44,6 +42,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 import CategoryTree from './CategoryTree.vue'
 
 const props = defineProps({

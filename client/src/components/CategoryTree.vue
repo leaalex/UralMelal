@@ -8,15 +8,10 @@
         :aria-label="expanded ? 'Свернуть' : 'Развернуть'"
         @click="expanded = !expanded"
       >
-        <svg
+        <ChevronRightIcon
           class="h-4 w-4 transition-transform"
           :class="{ 'rotate-90': expanded }"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
+        />
       </button>
       <button
         type="button"
@@ -41,6 +36,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { ChevronRightIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
   category: { type: Object, required: true },

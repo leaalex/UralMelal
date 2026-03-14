@@ -38,9 +38,14 @@ func (r *ProductRepository) List(params ProductListParams) (ProductListResult, e
 	}
 	if params.Q != "" {
 		searchTerm := "%" + strings.TrimSpace(params.Q) + "%"
+		// ILIKE для postgres (без учёта регистра), LIKE для sqlite (уже case-insensitive)
+		op := "LIKE"
+		if r.dbType == "postgres" {
+			op = "ILIKE"
+		}
 		q = q.Where(
-			"name LIKE ? OR sku LIKE ? OR description LIKE ?",
-			searchTerm, searchTerm, searchTerm,
+			"name "+op+" ? OR sku "+op+" ? OR description "+op+" ? OR size "+op+" ? OR mark "+op+" ? OR city "+op+" ?",
+			searchTerm, searchTerm, searchTerm, searchTerm, searchTerm, searchTerm,
 		)
 	}
 	var total int64

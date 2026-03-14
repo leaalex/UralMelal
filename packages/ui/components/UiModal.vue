@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="modelValue" class="fixed inset-0 flex items-center justify-center z-50 p-4" @click.self="close">
+      <div v-if="modelValue" class="fixed inset-0 flex items-center justify-center z-[100] p-4" @click.self="close">
         <div class="absolute inset-0 bg-black/50 transition-opacity" />
         <div
           class="relative bg-white rounded-xl shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto ring-1 ring-slate-200/50 transition-all duration-200"
@@ -14,11 +14,9 @@
             aria-label="Закрыть"
             @click="close"
           >
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XMarkIcon class="h-5 w-5" />
           </button>
-          <div v-if="$slots.title" class="mb-4 pr-10">
+          <div v-if="$slots.title" class="mb-3 sm:mb-4 pr-10">
             <slot name="title" />
           </div>
           <slot />
@@ -30,6 +28,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
   modelValue: Boolean,
@@ -44,7 +43,7 @@ const sizeClass = computed(() => {
   return map[props.size] || map.md
 })
 
-const paddingClass = computed(() => 'p-6')
+const paddingClass = computed(() => 'p-4 sm:p-6')
 
 function close() {
   emit('update:modelValue', false)

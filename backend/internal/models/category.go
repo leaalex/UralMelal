@@ -13,8 +13,9 @@ type Category struct {
 	ParentID  *uint          `json:"parent_id"`
 	Parent    *Category      `gorm:"foreignKey:ParentID" json:"parent,omitempty"`
 	Children  []Category    `gorm:"foreignKey:ParentID" json:"children,omitempty"`
-	SortOrder int            `gorm:"default:0" json:"sort_order"`
-	CreatedAt time.Time      `json:"created_at"`
+	SortOrder    int            `gorm:"default:0" json:"sort_order"`
+	ProductCount int            `gorm:"-" json:"product_count"`
+	CreatedAt    time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }

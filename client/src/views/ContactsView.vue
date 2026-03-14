@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-      <h1 class="text-3xl font-bold text-slate-900">Контакты</h1>
+      <h1 class="text-3xl font-bold text-slate-900">О компании</h1>
       <UiButton size="lg" class="shrink-0" @click="openContactModal?.()">
         Связаться со мной
       </UiButton>

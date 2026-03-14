@@ -8,9 +8,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
+  optimizeDeps: {
+    include: ['@heroicons/vue/24/outline'],
+  },
   resolve: {
     alias: {
       '@ui': path.resolve(__dirname, '../packages/ui'),
+      '@heroicons/vue': path.resolve(__dirname, 'node_modules/@heroicons/vue'),
       'markdown-it': path.resolve(__dirname, 'node_modules/markdown-it'),
     },
   },
