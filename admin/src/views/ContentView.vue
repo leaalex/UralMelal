@@ -1,6 +1,5 @@
 <template>
   <div>
-    <UiPageHeader title="Контент" />
     <div class="space-y-6">
       <UiCard v-for="block in blocks" :key="block.id" :class="block.hidden ? 'opacity-75' : ''">
         <div class="flex items-center justify-between mb-2">
@@ -28,7 +27,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { MarkdownContent, UiButton, UiCard, UiEmpty, UiInput, UiPageHeader } from '@ui'
+import { MarkdownContent, UiButton, UiCard, UiEmpty, UiInput } from '@ui'
 import client from '../api/client'
 
 const blocks = ref([])

@@ -1,11 +1,8 @@
 <template>
   <div>
-    <UiPageHeader title="Пользователи">
-      <template #actions>
-        <UiButton @click="openCreate">+ Пользователь</UiButton>
-      </template>
-    </UiPageHeader>
-
+    <div class="flex justify-end mb-4">
+      <UiButton @click="openCreate">+ Пользователь</UiButton>
+    </div>
     <UiTable
       v-if="users.length"
       :columns="tableColumns"
@@ -42,7 +39,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { UiButton, UiEmpty, UiInput, UiModal, UiPageHeader, UiSelect, UiTable } from '@ui'
+import { UiButton, UiEmpty, UiInput, UiModal, UiSelect, UiTable } from '@ui'
 import client from '../api/client'
 
 const users = ref([])

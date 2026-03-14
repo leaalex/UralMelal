@@ -1,6 +1,5 @@
 <template>
   <div>
-    <UiPageHeader title="Импорт каталога" />
     <UiCard class="max-w-lg">
       <UiSelect v-model="format" label="Формат">
         <option value="json">JSON</option>
@@ -28,7 +27,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { UiButton, UiCard, UiPageHeader, UiSelect } from '@ui'
+import { UiButton, UiCard, UiSelect } from '@ui'
 import client from '../api/client'
 
 const format = ref('json')

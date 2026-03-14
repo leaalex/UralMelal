@@ -1,18 +1,15 @@
 <template>
   <div>
-    <UiPageHeader title="Каталог">
-      <template #actions>
-        <UiInput v-model="q" placeholder="Поиск..." class="w-48" @keyup.enter="load" />
-        <UiSelect v-model="categoryId" @change="load">
-          <option value="">Все категории</option>
-          <option v-for="c in flatCategories" :key="c.id" :value="c.id">{{ c.name }}</option>
-        </UiSelect>
-        <UiButton @click="load">Найти</UiButton>
-        <UiButton variant="secondary" to="/catalog/import">Импорт</UiButton>
-        <UiButton variant="success" @click="openCreate">+ Товар</UiButton>
-      </template>
-    </UiPageHeader>
-
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <UiInput v-model="q" placeholder="Поиск..." class="w-48" @keyup.enter="load" />
+      <UiSelect v-model="categoryId" @change="load">
+        <option value="">Все категории</option>
+        <option v-for="c in flatCategories" :key="c.id" :value="c.id">{{ c.name }}</option>
+      </UiSelect>
+      <UiButton @click="load">Найти</UiButton>
+      <UiButton variant="secondary" to="/catalog/import">Импорт</UiButton>
+      <UiButton variant="success" @click="openCreate">+ Товар</UiButton>
+    </div>
     <UiTable
       v-if="products.length"
       :columns="tableColumns"
@@ -68,7 +65,6 @@ import {
   UiEmpty,
   UiInput,
   UiModal,
-  UiPageHeader,
   UiPagination,
   UiSelect,
   UiTable,

@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-col h-full">
-    <UiPageHeader title="Категории">
-      <template #actions>
-        <UiButton @click="openCreate">+ Категория</UiButton>
-      </template>
-    </UiPageHeader>
-
-    <div class="flex flex-1 gap-4 min-h-0 mt-4">
+    <div class="flex flex-1 gap-4 min-h-0">
       <!-- Left: tree -->
-      <aside class="w-72 shrink-0 overflow-y-auto border border-slate-200 rounded-xl bg-white">
-        <div class="p-2">
+      <aside class="w-72 shrink-0 flex flex-col border border-slate-200 rounded-xl bg-white overflow-hidden">
+        <div class="shrink-0 p-2 border-b border-slate-200 flex items-center justify-between gap-2">
+          <span class="text-sm font-medium text-slate-600">Список категорий</span>
+          <UiButton size="sm" @click="openCreate" :aria-label="'Добавить категорию'">
+          <PlusIcon class="h-4 w-4" />
+        </UiButton>
+        </div>
+        <div class="flex-1 overflow-y-auto p-2 min-h-0">
           <CategoryTreeNode
             v-for="c in categories"
             :key="c.id"
@@ -18,8 +18,8 @@
             :depth="0"
             @select="selectedId = $event"
           />
+          <UiEmpty v-if="!categories.length" message="Нет категорий" class="py-8" />
         </div>
-        <UiEmpty v-if="!categories.length" message="Нет категорий" class="py-8" />
       </aside>
 
       <!-- Right: form / details -->
@@ -94,7 +94,8 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { UiButton, UiEmpty, UiInput, UiPageHeader, UiSelect } from '@ui'
+import { PlusIcon } from '@heroicons/vue/24/outline'
+import { UiButton, UiEmpty, UiInput, UiSelect } from '@ui'
 import CategoryTreeNode from '../components/CategoryTreeNode.vue'
 import client from '../api/client'
 

@@ -6,21 +6,22 @@
         { 'bg-slate-200 text-slate-900': isSelected },
         { 'text-slate-700': !isSelected }
       ]"
-      :style="{ paddingLeft: `${depth * 16 + 8}px` }"
+      :style="{ paddingLeft: `${depth * 8 + 4}px` }"
       @click="emit('select', node.id)"
     >
       <button
         v-if="hasChildren"
         type="button"
-        class="shrink-0 p-1 rounded hover:bg-slate-200 -ml-1"
+        class="shrink-0 w-5 h-5 flex items-center justify-center rounded hover:bg-slate-200"
         @click.stop="expanded = !expanded"
+        :aria-label="expanded ? 'Свернуть' : 'Развернуть'"
       >
-        <ChevronRightIcon
-          class="h-4 w-4 transition-transform"
-          :class="{ 'rotate-90': expanded }"
-        />
+        <FolderIcon v-if="!expanded" class="h-4 w-4 text-slate-500" />
+        <FolderOpenIcon v-else class="h-4 w-4 text-slate-500" />
       </button>
-      <span v-else class="w-6 shrink-0" />
+      <span v-else class="shrink-0 w-5 h-5 flex items-center justify-center">
+        <TagIcon class="h-4 w-4 text-slate-500" />
+      </span>
       <span class="flex-1 truncate">{{ node.name }}</span>
       <span
         v-if="node.product_count > 0"
@@ -44,7 +45,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { FolderIcon, FolderOpenIcon, TagIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
   node: { type: Object, required: true },

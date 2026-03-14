@@ -1,16 +1,13 @@
 <template>
   <div>
-    <UiPageHeader title="Заявки">
-      <template #actions>
-        <UiSelect v-model="statusFilter" @change="load">
-          <option value="">Все</option>
-          <option value="new">Новые</option>
-          <option value="processed">Обработанные</option>
-        </UiSelect>
-        <UiButton variant="secondary" @click="load">Обновить</UiButton>
-      </template>
-    </UiPageHeader>
-
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <UiSelect v-model="statusFilter" @change="load">
+        <option value="">Все</option>
+        <option value="new">Новые</option>
+        <option value="processed">Обработанные</option>
+      </UiSelect>
+      <UiButton variant="secondary" @click="load">Обновить</UiButton>
+    </div>
     <UiTable
       v-if="leads.length"
       :columns="tableColumns"
@@ -34,7 +31,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
-import { UiBadge, UiButton, UiEmpty, UiPageHeader, UiPagination, UiSelect, UiTable } from '@ui'
+import { UiBadge, UiButton, UiEmpty, UiPagination, UiSelect, UiTable } from '@ui'
 import client from '../api/client'
 
 const leads = ref([])
