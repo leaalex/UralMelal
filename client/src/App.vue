@@ -9,12 +9,12 @@
 
     <!-- Desktop: vertical sidebar (admin style), expanded on home, collapsed + hover on other pages -->
     <nav
-      class="hidden lg:flex group fixed top-4 left-4 bottom-4 z-50 flex-col bg-white/95 backdrop-blur-xl text-slate-700 border border-slate-200 rounded-xl overflow-hidden shadow-xl transition-[width] duration-200 ease-out min-w-0"
-      :class="isHome ? 'w-56 sidebar-expanded' : 'w-16 hover:w-56'"
+      class="hidden lg:flex group fixed top-4 left-4 bottom-4 z-50 flex-col bg-white/50 backdrop-blur-2xl backdrop-saturate-150 text-slate-700 border border-white/20 rounded-xl overflow-hidden shadow-2xl transition-[width] duration-200 ease-out min-w-0"
+      :class="isHome ? 'w-[15.4rem] sidebar-expanded' : 'w-16 hover:w-[15.4rem]'"
       @mouseenter="sidebarHovered = true"
       @mouseleave="sidebarHovered = false"
     >
-      <div class="shrink-0 pt-6 pb-5 border-b border-slate-200 flex items-center justify-center min-h-[4.5rem] min-w-0" :class="isHome ? 'px-4' : 'px-2'">
+      <div class="shrink-0 pt-6 pb-5 border-b border-white/20 flex items-center justify-center min-h-[4.5rem] min-w-0 px-2">
         <div class="sidebar-logo-compact flex justify-center items-center w-12 min-w-12 h-10">
           <Logo compact size="sm" class="sidebar-logo-img" />
         </div>
@@ -25,38 +25,38 @@
       <div class="flex-1 flex flex-col gap-2 pt-4 overflow-y-auto min-h-0 min-w-0" :class="isHome ? 'px-2' : 'px-2 items-center'">
         <router-link
           to="/"
-          exact-active-class="!bg-slate-200 !text-slate-900"
-          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 nav-link"
+          exact-active-class="!bg-slate-500 !text-white"
+          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors duration-200 nav-link"
         >
           <HomeIcon class="h-5 w-5 shrink-0" />
           <span class="text-sm whitespace-nowrap overflow-hidden sidebar-link-text">Главная</span>
         </router-link>
         <router-link
           to="/catalog"
-          active-class="!bg-slate-200 !text-slate-900"
-          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 nav-link"
+          active-class="!bg-slate-500 !text-white"
+          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors duration-200 nav-link"
         >
           <CubeIcon class="h-5 w-5 shrink-0" />
           <span class="text-sm whitespace-nowrap overflow-hidden sidebar-link-text">Каталог</span>
         </router-link>
         <router-link
           to="/contacts"
-          exact-active-class="!bg-slate-200 !text-slate-900"
-          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 nav-link"
+          exact-active-class="!bg-slate-500 !text-white"
+          class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors duration-200 nav-link"
         >
           <EnvelopeIcon class="h-5 w-5 shrink-0" />
           <span class="text-sm whitespace-nowrap overflow-hidden sidebar-link-text">О компании</span>
         </router-link>
       </div>
-      <div class="flex flex-col gap-2 py-4 shrink-0 min-w-0 border-t border-slate-200" :class="isHome ? 'px-2' : 'px-2 items-center'">
-        <a :href="`tel:${telHref}`" class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 nav-link no-underline" aria-label="Позвонить">
+      <div class="flex flex-col gap-2 py-4 shrink-0 min-w-0 border-t border-white/20" :class="isHome ? 'px-2' : 'px-2 items-center'">
+        <a :href="`tel:${telHref}`" class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors duration-200 nav-link no-underline" aria-label="Позвонить">
           <PhoneIcon class="h-5 w-5 shrink-0" />
           <span class="text-sm whitespace-nowrap overflow-hidden sidebar-link-text">{{ contactPhone }}</span>
           <span v-if="sidebarExpanded" role="button" tabindex="0" class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-200 cursor-pointer" aria-label="Копировать" @click.stop.prevent="copyToClipboard(contactPhone)">
             <DocumentDuplicateIcon class="h-4 w-4" />
           </span>
         </a>
-        <a :href="`mailto:${contactEmail}`" class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 nav-link no-underline" aria-label="Написать">
+        <a :href="`mailto:${contactEmail}`" class="flex items-center h-12 w-full min-w-12 rounded-lg text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors duration-200 nav-link no-underline" aria-label="Написать">
           <EnvelopeIcon class="h-5 w-5 shrink-0" />
           <span class="text-sm whitespace-nowrap overflow-hidden sidebar-link-text">{{ contactEmail }}</span>
           <span v-if="sidebarExpanded" role="button" tabindex="0" class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-200 cursor-pointer" aria-label="Копировать" @click.stop.prevent="copyToClipboard(contactEmail)">
@@ -69,27 +69,27 @@
     <!-- Mobile: bottom bar - two panels -->
     <div class="lg:hidden fixed bottom-4 left-4 right-4 flex gap-2 z-50">
       <!-- Панель 1: Главная, Каталог, О компании -->
-      <nav class="flex-1 flex bg-white/95 backdrop-blur-xl text-slate-700 border border-slate-200 rounded-xl overflow-hidden shadow-xl">
+      <nav class="flex-1 flex bg-white/50 backdrop-blur-2xl backdrop-saturate-150 text-slate-700 border border-white/20 rounded-xl overflow-hidden shadow-2xl">
       <router-link
         to="/"
-        exact-active-class="!bg-slate-100 !text-slate-900"
-        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        exact-active-class="!bg-slate-500 !text-white"
+        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors"
       >
           <HomeIcon class="h-6 w-6" />
         <span class="text-xs mt-0.5">Главная</span>
       </router-link>
       <router-link
         to="/catalog"
-        active-class="!bg-slate-100 !text-slate-900"
-        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        active-class="!bg-slate-500 !text-white"
+        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors"
       >
           <CubeIcon class="h-6 w-6" />
         <span class="text-xs mt-0.5">Каталог</span>
       </router-link>
       <router-link
         to="/contacts"
-        exact-active-class="!bg-slate-100 !text-slate-900"
-        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        exact-active-class="!bg-slate-500 !text-white"
+        class="flex flex-col items-center justify-center flex-1 py-3 text-slate-600 hover:bg-slate-400 hover:text-slate-900 transition-colors"
       >
           <EnvelopeIcon class="h-6 w-6" />
         <span class="text-xs mt-0.5">О компании</span>
@@ -98,7 +98,7 @@
       <!-- Панель 2: Связаться -->
       <button
         type="button"
-        class="flex flex-col items-center justify-center px-5 py-3 bg-white/95 backdrop-blur-xl text-slate-600 border border-slate-200 rounded-xl shadow-xl hover:bg-slate-100 hover:text-slate-900 transition-colors"
+        class="flex flex-col items-center justify-center px-5 py-3 bg-white/50 backdrop-blur-2xl backdrop-saturate-150 text-slate-600 border border-white/20 rounded-xl shadow-2xl hover:bg-slate-100 hover:text-slate-900 transition-colors"
         @click="contactModalOpen = true"
       >
         <ChatBubbleLeftRightIcon class="h-6 w-6" />
@@ -106,7 +106,7 @@
       </button>
     </div>
 
-    <main :class="['flex-1 pb-36 lg:pt-0 lg:pb-0 transition-[margin-left] duration-200 ease-out', isHome ? 'lg:ml-0 pt-0' : 'lg:ml-20 pt-20']">
+    <main :class="['flex-1 pb-36 lg:pt-0 lg:pb-0 transition-[margin-left] duration-200 ease-out', isHome ? 'lg:ml-0 pt-0' : (sidebarExpanded ? 'lg:ml-[17rem] pt-20' : 'lg:ml-20 pt-20')]">
       <router-view :key="$route.fullPath" />
     </main>
     <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
