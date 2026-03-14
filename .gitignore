@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+*.log
+storage/*
+!storage/.gitkeep
+backend/data/*
+!backend/data/.gitkeep
+node_modules/
+dist/
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
