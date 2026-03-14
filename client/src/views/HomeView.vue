@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="relative w-full lg:w-screen lg:max-w-none lg:-ml-20 h-screen min-h-[400px] overflow-hidden">
+    <section class="relative w-full h-screen min-h-[400px] overflow-hidden">
       <video
         autoplay
         muted
