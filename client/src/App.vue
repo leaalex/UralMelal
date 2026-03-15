@@ -133,21 +133,17 @@
 
     <ContactModal v-model="contactModalOpen" />
 
-    <!-- Search button + panel - top right over video (only on home) -->
+    <!-- Search - always visible, top right over video (only on home) -->
     <div v-if="route.path === '/'" class="fixed top-4 right-4 z-[60] flex justify-end gap-2">
-      <form class="group flex flex-row-reverse items-center gap-2" @submit.prevent="doSearch">
+      <form class="flex flex-row-reverse items-center gap-2" @submit.prevent="doSearch">
         <button
-          type="button"
+          type="submit"
           class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-white/50 backdrop-blur-2xl backdrop-saturate-150 text-slate-700 hover:bg-white/60 hover:text-slate-900 border border-white/20 shadow-2xl"
           aria-label="Поиск"
-          @click.prevent="toggleSearch"
         >
           <MagnifyingGlassIcon class="h-5 w-5" />
         </button>
-        <div
-          class="overflow-hidden rounded-xl bg-white/50 backdrop-blur-2xl backdrop-saturate-150 border border-white/20 shadow-2xl w-0 opacity-0 group-hover:w-[16.8rem] group-hover:opacity-100"
-          :class="{ '!w-[16.8rem] !opacity-100': searchExpanded }"
-        >
+        <div class="rounded-xl bg-white/50 backdrop-blur-2xl backdrop-saturate-150 border border-white/20 shadow-2xl w-[16.8rem]">
           <input
             ref="searchInput"
             v-model="searchQuery"
@@ -155,7 +151,6 @@
             placeholder="Поиск по названию, артикулу..."
             autocomplete="off"
             class="w-[16.8rem] px-3 py-2.5 text-slate-800 placeholder-slate-500 bg-transparent focus:outline-none border-0 rounded-xl"
-            @keydown.esc="searchExpanded = false"
             @keydown.enter.prevent="doSearch"
           />
         </div>
@@ -175,7 +170,7 @@
 </template>
 
 <script setup>
-import { ref, computed, provide, nextTick } from 'vue'
+import { ref, computed, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   HomeIcon,
@@ -202,21 +197,12 @@ function toggleSidebar() {
 }
 const contactModalOpen = ref(false)
 const searchQuery = ref('')
-const searchExpanded = ref(false)
 const searchInput = ref(null)
-
-function toggleSearch() {
-  searchExpanded.value = !searchExpanded.value
-  if (searchExpanded.value) {
-    nextTick(() => searchInput.value?.focus())
-  }
-}
 
 function doSearch() {
   const q = searchQuery.value?.trim()
   if (q) {
     router.push({ path: '/catalog', query: { q } })
-    searchExpanded.value = false
     searchQuery.value = ''
   }
 }
