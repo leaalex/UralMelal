@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="`/catalog/${product.id}`"
-    class="block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-200 overflow-hidden"
+    class="block bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 overflow-hidden"
     :class="view === 'list' ? 'flex flex-row' : ''"
   >
     <div

@@ -1,7 +1,7 @@
 <template>
   <router-link
     to="/"
-    class="flex items-center shrink-0 hover:opacity-90 transition-opacity no-underline"
+    class="flex items-center shrink-0 hover:opacity-90 no-underline"
     :class="compact ? 'justify-center w-full' : 'justify-start'"
   >
     <img

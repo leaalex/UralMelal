@@ -1,6 +1,6 @@
 <template>
   <tr
-    class="group hover:bg-slate-50 transition-colors cursor-pointer border-b border-slate-100 last:border-0"
+    class="group hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0"
     @click="navigate"
   >
     <td class="px-4 py-3 w-20 align-middle">

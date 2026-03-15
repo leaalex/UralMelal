@@ -28,7 +28,7 @@
           v-for="cat in rootCategories"
           :key="cat.id"
           :to="{ path: '/catalog', query: { cat: cat.id } }"
-          class="block p-6 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all duration-200 text-slate-800"
+          class="block p-6 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md text-slate-800"
         >
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
@@ -55,7 +55,7 @@
           v-for="cat in currentCategory?.children ?? []"
           :key="cat.id"
           :to="{ path: '/catalog', query: { cat: cat.id } }"
-          class="block p-6 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all duration-200 text-slate-800"
+          class="block p-6 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md text-slate-800"
         >
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
@@ -124,7 +124,7 @@
       </p>
 
       <div v-if="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <div v-for="i in 6" :key="i" class="rounded-xl border border-slate-200 bg-white overflow-hidden animate-pulse">
+        <div v-for="i in 6" :key="i" class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="h-44 bg-slate-200" />
           <div class="p-4 space-y-2">
             <div class="h-4 bg-slate-200 rounded w-3/4" />
@@ -225,7 +225,7 @@
       <p v-if="!loading && !apiError" class="text-sm text-slate-500 mb-4">Найдено: {{ total }}</p>
 
       <div v-if="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <div v-for="i in 6" :key="i" class="rounded-xl border border-slate-200 bg-white overflow-hidden animate-pulse">
+        <div v-for="i in 6" :key="i" class="rounded-xl border border-slate-200 bg-white overflow-hidden">
           <div class="h-44 bg-slate-200" />
           <div class="p-4 space-y-2">
             <div class="h-4 bg-slate-200 rounded w-3/4" />

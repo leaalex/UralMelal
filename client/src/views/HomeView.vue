@@ -18,10 +18,10 @@
         </router-link>
         <p class="text-xl md:text-2xl text-slate-700 mb-8">Надёжный поставщик металлопродукции</p>
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <UiButton to="/catalog" variant="secondary" size="xl" class="min-w-[220px] shrink-0 shadow-lg border-slate-300 bg-white/90 hover:bg-white text-slate-800">
+          <UiButton to="/catalog" variant="secondary" size="xl" class="min-w-[220px] shrink-0 shadow-2xl border border-white/20 bg-white/50 backdrop-blur-2xl backdrop-saturate-150 hover:bg-white/60 text-slate-800">
             Перейти в каталог
           </UiButton>
-          <UiButton variant="secondary" size="xl" class="min-w-[220px] shrink-0 shadow-lg border-slate-300 bg-white/90 hover:bg-white text-slate-800" @click="openContactModal?.()">
+          <UiButton variant="secondary" size="xl" class="min-w-[220px] shrink-0 shadow-2xl border border-white/20 bg-white/50 backdrop-blur-2xl backdrop-saturate-150 hover:bg-white/60 text-slate-800" @click="openContactModal?.()">
             Связаться со мной
           </UiButton>
         </div>

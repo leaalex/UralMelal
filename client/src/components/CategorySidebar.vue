@@ -1,13 +1,13 @@
 <template>
   <aside
-    class="fixed inset-y-0 left-0 z-40 w-72 max-w-[85vw] bg-white border-r border-slate-200 shadow-lg transform transition-transform duration-200 ease-out lg:relative lg:z-0 lg:left-auto lg:inset-auto lg:w-64 lg:max-w-none lg:shrink-0 lg:shadow-none lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-40 w-72 max-w-[85vw] bg-white border-r border-slate-200 shadow-lg lg:relative lg:z-0 lg:left-auto lg:inset-auto lg:w-64 lg:max-w-none lg:shrink-0 lg:shadow-none lg:translate-x-0"
     :class="open ? 'translate-x-0' : 'max-lg:-translate-x-full'"
   >
     <div class="flex items-center justify-between p-4 border-b border-slate-200 lg:hidden">
       <span class="font-semibold text-slate-800">Категории</span>
       <button
         type="button"
-        class="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-600 transition-colors"
+        class="p-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-600"
         aria-label="Закрыть"
         @click="emit('update:open', false)"
       >
@@ -17,7 +17,7 @@
     <nav class="p-4 overflow-y-auto overflow-x-hidden max-h-[calc(100vh-4rem)] lg:max-h-none min-w-0">
       <button
         type="button"
-        class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
+        class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium"
         :class="!modelValue ? 'bg-slate-200 text-slate-900 font-semibold' : 'text-slate-700 hover:bg-slate-100'"
         @click="emit('update:modelValue', null)"
       >

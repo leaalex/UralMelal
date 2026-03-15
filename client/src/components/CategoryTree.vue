@@ -9,13 +9,13 @@
         @click="expanded = !expanded"
       >
         <ChevronRightIcon
-          class="h-4 w-4 transition-transform"
+          class="h-4 w-4"
           :class="{ 'rotate-90': expanded }"
         />
       </button>
       <button
         type="button"
-        class="flex-1 min-w-0 text-left px-3 py-2 rounded-xl text-sm font-medium transition-colors truncate"
+        class="flex-1 min-w-0 text-left px-3 py-2 rounded-xl text-sm font-medium truncate"
         :class="isSelected ? 'bg-slate-200 text-slate-900 font-semibold' : 'text-slate-700 hover:bg-slate-100'"
         @click="emit('select', category.id)"
       >

@@ -11,7 +11,7 @@
       <!-- Часть 1: Телефон и почта -->
       <div class="p-0">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
-          <div class="flex items-center gap-2 sm:gap-4 p-2.5 sm:p-4 rounded-lg sm:rounded-xl bg-slate-50 hover:bg-slate-100 transition-all">
+          <div class="flex items-center gap-2 sm:gap-4 p-2.5 sm:p-4 rounded-lg sm:rounded-xl bg-slate-50 hover:bg-slate-100">
             <a :href="`tel:${telHref}`" class="group flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
               <div class="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-200 flex items-center justify-center">
                 <PhoneIcon class="h-5 w-5 sm:h-5 sm:w-5 text-slate-600" />
@@ -23,14 +23,14 @@
             </a>
             <button
               type="button"
-              class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors"
+              class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600"
               aria-label="Скопировать телефон"
               @click.stop="copyToClipboard(contactPhone)"
             >
               <DocumentDuplicateIcon class="h-4 w-4" />
             </button>
           </div>
-          <div class="flex items-center gap-2 sm:gap-4 p-2.5 sm:p-4 rounded-lg sm:rounded-xl bg-slate-50 hover:bg-slate-100 transition-all">
+          <div class="flex items-center gap-2 sm:gap-4 p-2.5 sm:p-4 rounded-lg sm:rounded-xl bg-slate-50 hover:bg-slate-100">
             <a :href="`mailto:${contactEmail}`" class="group flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
               <div class="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-200 flex items-center justify-center">
                 <EnvelopeIcon class="h-5 w-5 sm:h-5 sm:w-5 text-slate-600" />
@@ -42,7 +42,7 @@
             </a>
             <button
               type="button"
-              class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors"
+              class="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600"
               aria-label="Скопировать почту"
               @click.stop="copyToClipboard(contactEmail)"
             >

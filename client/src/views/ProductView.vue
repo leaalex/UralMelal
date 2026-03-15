@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-7xl mx-auto px-4 py-6 lg:py-8 min-w-0">
     <div v-if="loading">
-      <div class="animate-pulse space-y-6">
+      <div class="space-y-6">
         <div class="h-4 bg-slate-200 rounded w-48" />
         <div class="flex flex-col md:flex-row gap-6">
           <div class="md:w-1/2 h-80 bg-slate-200 rounded-xl" />
